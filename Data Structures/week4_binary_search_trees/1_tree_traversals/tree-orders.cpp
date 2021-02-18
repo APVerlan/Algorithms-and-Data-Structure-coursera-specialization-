@@ -11,6 +11,7 @@ using std::cin;
 using std::cout;
 
 class TreeOrders {
+private:
   int n;
   vector <int> key;
   vector <int> left;
@@ -27,28 +28,73 @@ public:
     }
   }
 
+	void in_order_(int i, vector<int>& res) {
+		if (left[i] > 0)
+			in_order_(left[i], res);
+
+		res.push_back(key[i]);
+
+		if (right[i] > 0)
+			in_order_(right[i], res);
+	}
 
   vector <int> in_order() {
     vector<int> result;
     // Finish the implementation
     // You may need to add a new recursive method to do that
+		if (left[0] > 0)
+			in_order_(left[0], result);
+		result.push_back(key[0]);
+		if (right[0] > 0)
+			in_order_(right[0], result);
 
     return result;
   }
+	
+	void pre_order_(int i, vector<int>& res) {
+		res.push_back(key[i]);
+
+		if (left[i]  > 0)
+			pre_order_(left[i], res);
+
+		if (right[i]  > 0)
+			pre_order_(right[i], res);
+	}
 
   vector <int> pre_order() {
     vector<int> result;    
     // Finish the implementation
     // You may need to add a new recursive method to do that
-    
+		result.push_back(key[0]);
+    if (left[0] > 0)
+			pre_order_(left[0], result);
+		if (right[0] > 0)
+			pre_order_(right[0], result);
+
     return result;
   }
+
+	void post_order_(int i, vector<int>& res) {
+		if (left[i]  > 0)
+			post_order_(left[i], res);
+
+		if (right[i]  > 0)
+			post_order_(right[i], res);
+	
+		res.push_back(key[i]);
+	}
 
   vector <int> post_order() {
     vector<int> result;
     // Finish the implementation
     // You may need to add a new recursive method to do that
-    
+    if (left[0] > 0)
+			post_order_(left[0], result);
+		if (right[0] > 0)
+			post_order_(right[0], result);
+		result.push_back(key[0]);
+
+
     return result;
   }
 };
